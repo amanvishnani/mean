@@ -1,0 +1,28 @@
+<section>
+  <div class="page-header">
+    <h1>Tasks</h1>
+  </div>
+  <div class="list-group">
+    <div class="list-group-item" ng-repeat="task in vm.tasks">
+    <a ui-sref="tasks.view({ taskId: task._id })">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="task.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="task.user" ng-bind="task.user.displayName"></span>
+        <span ng-if="!task.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading">
+        <input type="checkbox" ng-checked="task.done"/>
+        <span>&nbsp;&nbsp;&nbsp;</span>{{task.name}}
+      </h4>
+    </a>
+    <a ui-sref="tasks.edit({ taskId: task._id })">
+      <button class="btn btn-warning">Edit</button>
+    </a>
+    </div>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.tasks.$resolved && !vm.tasks.length">
+    No Tasks yet, why don't you <a ui-sref="tasks.create">create one</a>?
+  </div>
+</section>
